@@ -7,6 +7,7 @@ EXEC,XSE,Security & Loss Prevention,XSE01,Access is restricted to badge holders;
 EXEC,XSE,Security & Loss Prevention,XSE02,"CCTV is recording with full coverage of docks, high-value cage and customs areas; playback works",Executive 3,2,Y,S,Ask for 24 h playback of the cage
 EXEC,XSE,Security & Loss Prevention,XSE03,"High-value cage is locked, access-logged and its last count reconciled",Executive 3,3,Y,S I,"Cage log, last count sheet"
 EXEC,XSE,Security & Loss Prevention,XSE04,Shrink / stock loss is within budget year-to-date; top losses have a root cause and owner,Executive 3,3,N,I,Shrink report YTD vs budget
+EXEC,XSE,Security & Loss Prevention,XSE05,"Exit checks are done for everyone leaving (staff, drivers, visitors): bags and personal items checked, no goods leave without a gate pass",Executive 3,3,Y,S I,Observe an exit or ask for today's exit-check log and gate passes
 EXEC,XIN,Inventory & Financial Exposure,XIN01,Last full stock count variance within tolerance and approved; cycle-count plan on schedule,Executive 3,3,N,I,"Count result, cycle count compliance %"
 EXEC,XIN,Inventory & Financial Exposure,XIN02,Bin accuracy spot-check of 5 bins is 100% (SKU + quantity),Executive 3,2,N,I,Do it yourself – 5 random bins
 EXEC,XIN,Inventory & Financial Exposure,XIN03,"Aged, obsolete, damaged and near-expiry stock is quantified, provisioned and has an action plan",Executive 3,2,N,I Q,"Ageing report, provision, clearance plan"
@@ -22,7 +23,7 @@ EXEC,XPC,Product Compliance & Quality,XPC05,Value and age of damaged / expired s
 EXEC,XOP,"Operations Performance, People & Governance",XOP01,Store order fill rate and on-time delivery to shops meet target; no shop stock-outs caused by the warehouse,Executive 3,2,N,,KPI dashboard
 EXEC,XOP,"Operations Performance, People & Governance",XOP02,Warehouse capacity and manpower are sufficient for the next 3 months (peak / Hajj / Ramadan / new shops),Executive 3,2,N,,Capacity plan
 EXEC,XOP,"Operations Performance, People & Governance",XOP03,Team trained on customs and airport security; key-person cover and business continuity (power / SAP downtime) in place,Executive 3,2,N,C S,"Training matrix, BCP"
-EXEC,XOP,"Operations Performance, People & Governance",XOP04,Daily checks are completed every shift and previous audit actions are closed on time,Executive 3,2,N,,"Daily check results, action tracker"
+EXEC,XOP,"Operations Performance, People & Governance",XOP04,"Daily checks and shift briefings are done every shift, and previous audit actions are closed on time",Executive 3,2,N,,"Daily check results, briefing attendance sheets, action tracker"
 EXEC,XOP,"Operations Performance, People & Governance",XOP05,Housekeeping and overall standard reflect the Lagardère brand – would you bring a customs official or partner here today?,Executive 3,1,N,,Overall impression
 HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC01,"Customs bonded / duty-free warehouse licence issued by ZATCA is valid, on file and covers this site address",Yes/No,3,Y,C,"Licence copy, expiry date, site address"
 HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC02,"Approved customs warehouse layout plan matches the actual layout (no unapproved extension, re-purposing or relocation of bonded areas)",Yes/No,3,Y,C,Compare approved plan vs walk-through
@@ -51,7 +52,8 @@ HEAD,SEC,Airport Security & Access Control,SEC04,"High-value cage (watches, jewe
 HEAD,SEC,Airport Security & Access Control,SEC05,Goods for airside are screened / sealed with tamper-evident controls per the airport security programme,Yes/No,3,Y,S,"Screening records, TE seals"
 HEAD,SEC,Airport Security & Access Control,SEC06,"Tamper-evident seals and security bags are numbered, stored securely and issued against a register",Rating 5,2,N,S,Seal stock vs register
 HEAD,SEC,Airport Security & Access Control,SEC07,"Delivery vehicles and drivers are verified at the dock (ID, permit, seal, booking) before unloading",Rating 5,2,N,S,Dock log
-HEAD,SEC,Airport Security & Access Control,SEC08,Personal belongings policy is enforced; no personal bags in storage areas; exit checks performed,Rating 5,2,N,S,"Lockers, exit-check log"
+HEAD,SEC,Airport Security & Access Control,SEC08,"Personal belongings policy is enforced: personal bags and phones kept in lockers, no personal items in storage or picking areas",Rating 5,2,N,S,"Lockers, exit-check log"
+HEAD,SEC,Airport Security & Access Control,SEC12,"Every person leaving the warehouse (staff, drivers, contractors, visitors) is exit-checked – bags and personal items – and no goods leave without an approved gate pass / transfer or customs document; exit-check log is signed and reviewed daily",Rating 5,3,Y,S I,Observe exits at shift change; exit-check log; gate passes vs goods
 HEAD,SEC,Airport Security & Access Control,SEC09,"Key cabinet, key register and alarm codes are controlled and limited to authorised holders",Rating 5,2,N,S,Key register
 HEAD,SEC,Airport Security & Access Control,SEC10,Intruder alarm is tested and alarm events / responses are logged,Yes/No,1,N,S,Test record
 HEAD,SEC,Airport Security & Access Control,SEC11,"Tools and sharp objects (cutters, knives) are controlled and not taken airside without approval",Rating 5,1,N,S,Tool register
@@ -148,7 +150,7 @@ HEAD,PRF,Warehouse Performance,PRF05,Store order fill-rate and on-time delivery 
 HEAD,PRF,Warehouse Performance,PRF06,Manpower is suitable for the workload and responsibilities are clear,Rating 5,1,N,,
 HEAD,PRF,Warehouse Performance,PRF07,"Scanners, forklifts and pallet jacks are available; downtime is followed up",Rating 5,1,N,,
 HEAD,MGT,Management Protocols & People,MGT01,Current SOPs and work instructions (incl. customs & security procedures) are available to staff,Rating 5,2,N,C,
-HEAD,MGT,Management Protocols & People,MGT02,Daily briefing / debriefing records are maintained,Rating 5,2,N,,
+HEAD,MGT,Management Protocols & People,MGT02,"Daily briefing held every shift with attendance signed – covers safety, customs & security reminders (incl. exit checks), priorities and open actions",Rating 5,2,N,,
 HEAD,MGT,Management Protocols & People,MGT03,Staff are trained on customs duty-free rules and airport security awareness; records are current,Rating 5,3,N,C S,Training matrix
 HEAD,MGT,Management Protocols & People,MGT04,Required warehouse checks are completed and supervisor-verified,Rating 5,2,N,,
 HEAD,MGT,Management Protocols & People,MGT05,"Maintenance, training and competence records are current",Rating 5,2,N,H,
@@ -178,7 +180,8 @@ DAILY,DHS,Safety & Housekeeping,DHS03,"Battery charging area tidy, ventilated, n
 DAILY,DHS,Safety & Housekeeping,DHS04,Floors clean and dry; waste and empty cartons removed,Yes/No,1,N,H,
 DAILY,DHS,Safety & Housekeeping,DHS05,"No signs of pests (droppings, damaged packaging, insects)",Yes/No,2,Y,H Q,
 DAILY,DHS,Safety & Housekeeping,DHS06,"PPE (safety shoes, vests, gloves) worn by the team",Yes/No,1,N,H,
-DAILY,DCL,Team & Closing,DCL01,"Shift briefing done (priorities, customs / security reminders)",Yes/No,1,N,,
+DAILY,DCL,Team & Closing,DCL01,"Shift briefing held and attendance signed (safety, customs & security reminders, exit-check rule, priorities, open issues)",Yes/No,2,N,,
 DAILY,DCL,Team & Closing,DCL02,Scanners and devices charged and working; faults reported,Yes/No,1,N,,
+DAILY,DCL,Team & Closing,DCL05,"Exit checks done for every person leaving – bags and personal items checked, no goods taken out without an approved gate pass / transfer document; exit-check log signed",Yes/No,3,Y,S I,
 DAILY,DCL,Team & Closing,DCL03,"End of shift: all doors, dock shutters and cage locked; customs seals applied and logged",Yes/No,3,Y,C S,
 DAILY,DCL,Team & Closing,DCL04,Alarm set and keys returned to the key cabinet,Yes/No,2,Y,S,
