@@ -1,0 +1,184 @@
+﻿Level,AreaCode,AreaTitle,QuestionID,Question,AnswerType,Weight,Critical,Themes,Evidence
+EXEC,XCU,Customs & Bond Integrity,XCU01,"Bonded licence, approved layout and customs guarantee are valid; no unapproved changes to bonded areas",Executive 3,3,Y,C,"Ask: licence expiry, last layout approval, guarantee value vs stock"
+EXEC,XCU,Customs & Bond Integrity,XCU02,Customs stock register reconciles with SAP; last customs reconciliation closed without unexplained differences,Executive 3,3,Y,C I,Ask to see last reconciliation and open differences
+EXEC,XCU,Customs & Bond Integrity,XCU03,"No customs penalties, fines or open violations in the last 12 months; customs inspection findings are closed",Executive 3,3,Y,C,"Penalty log, last inspection report"
+EXEC,XCU,Customs & Bond Integrity,XCU04,"Every movement (receipt, transfer to shops, return, destruction) runs on a customs document and seal; spot-check 3 records end-to-end",Executive 3,3,Y,C S,Pick 3 recent transfers: declaration → seal → shop receipt
+EXEC,XSE,Security & Loss Prevention,XSE01,Access is restricted to badge holders; visitors logged and escorted (observe at entry),Executive 3,2,Y,S,Observe your own entry
+EXEC,XSE,Security & Loss Prevention,XSE02,"CCTV is recording with full coverage of docks, high-value cage and customs areas; playback works",Executive 3,2,Y,S,Ask for 24 h playback of the cage
+EXEC,XSE,Security & Loss Prevention,XSE03,"High-value cage is locked, access-logged and its last count reconciled",Executive 3,3,Y,S I,"Cage log, last count sheet"
+EXEC,XSE,Security & Loss Prevention,XSE04,Shrink / stock loss is within budget year-to-date; top losses have a root cause and owner,Executive 3,3,N,I,Shrink report YTD vs budget
+EXEC,XIN,Inventory & Financial Exposure,XIN01,Last full stock count variance within tolerance and approved; cycle-count plan on schedule,Executive 3,3,N,I,"Count result, cycle count compliance %"
+EXEC,XIN,Inventory & Financial Exposure,XIN02,Bin accuracy spot-check of 5 bins is 100% (SKU + quantity),Executive 3,2,N,I,Do it yourself – 5 random bins
+EXEC,XIN,Inventory & Financial Exposure,XIN03,"Aged, obsolete, damaged and near-expiry stock is quantified, provisioned and has an action plan",Executive 3,2,N,I Q,"Ageing report, provision, clearance plan"
+EXEC,XIN,Inventory & Financial Exposure,XIN04,"No GRN, transfer or adjustment backlog older than 24 h in SAP",Executive 3,2,N,I,Pending transactions report
+EXEC,XHS,Life Safety & HSE,XHS01,"Fire exits, aisles and emergency routes are clear; fire systems certified (Civil Defense) and tested",Executive 3,3,Y,H,Walk the route; check certificate date
+EXEC,XHS,Life Safety & HSE,XHS02,Racking and material handling equipment are safe; only licensed operators drive forklifts,Executive 3,2,Y,H,Observe MHE use; ask for licences
+EXEC,XHS,Life Safety & HSE,XHS03,No lost-time incidents unreported; incidents and near-misses are investigated,Executive 3,2,N,H,Incident log
+EXEC,XPC,Product Compliance & Quality,XPC01,"No expired, damaged or non-compliant product (SFDA labelling, SABER) in saleable or pick locations",Executive 3,3,Y,Q,Spot-check 10 food / cosmetic items
+EXEC,XPC,Product Compliance & Quality,XPC02,"Temperature-sensitive goods (chocolate, cigars, cosmetics) stored within range with daily records",Executive 3,2,N,Q,Temperature log last 7 days
+EXEC,XPC,Product Compliance & Quality,XPC03,No prohibited or restricted goods held without permit,Executive 3,3,Y,Q C,
+EXEC,XPC,Product Compliance & Quality,XPC04,"Testers, damaged and expired stock are quarantined, registered and destroyed only with Customs approval; write-offs reconcile with the customs register and SAP",Executive 3,3,Y,C I,Ask for the last destruction certificate and the quarantine cage register
+EXEC,XPC,Product Compliance & Quality,XPC05,Value and age of damaged / expired stock awaiting disposal is under control (nothing older than 90 days),Executive 3,2,N,I,Ask for the awaiting-destruction list
+EXEC,XOP,"Operations Performance, People & Governance",XOP01,Store order fill rate and on-time delivery to shops meet target; no shop stock-outs caused by the warehouse,Executive 3,2,N,,KPI dashboard
+EXEC,XOP,"Operations Performance, People & Governance",XOP02,Warehouse capacity and manpower are sufficient for the next 3 months (peak / Hajj / Ramadan / new shops),Executive 3,2,N,,Capacity plan
+EXEC,XOP,"Operations Performance, People & Governance",XOP03,Team trained on customs and airport security; key-person cover and business continuity (power / SAP downtime) in place,Executive 3,2,N,C S,"Training matrix, BCP"
+EXEC,XOP,"Operations Performance, People & Governance",XOP04,Daily checks are completed every shift and previous audit actions are closed on time,Executive 3,2,N,,"Daily check results, action tracker"
+EXEC,XOP,"Operations Performance, People & Governance",XOP05,Housekeeping and overall standard reflect the Lagardère brand – would you bring a customs official or partner here today?,Executive 3,1,N,,Overall impression
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC01,"Customs bonded / duty-free warehouse licence issued by ZATCA is valid, on file and covers this site address",Yes/No,3,Y,C,"Licence copy, expiry date, site address"
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC02,"Approved customs warehouse layout plan matches the actual layout (no unapproved extension, re-purposing or relocation of bonded areas)",Yes/No,3,Y,C,Compare approved plan vs walk-through
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC03,Customs financial guarantee / bank guarantee (if required) is valid and adequate for the bonded stock value,Yes/No,2,N,C,"Guarantee letter, value vs stock"
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC04,"Commercial Registration, Municipality (Balady) licence and Civil Defense safety certificate are valid",Yes/No,2,N,H,Expiry dates on all three
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC05,Airport operator / GACA concession permits and airside access approvals for the warehouse are valid,Yes/No,2,N,S,"Permit letters, renewal tracker"
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC06,SFDA establishment registration for food & cosmetics storage is valid (where applicable),Yes/No,2,N,Q,SFDA certificate
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC07,Customs broker authorisation and authorised-signatory list for customs declarations are current,Yes/No,1,N,C,"Authorisation letter, signatory list"
+HEAD,LIC,"Licences, Customs Bond & Regulatory Documents",LIC08,"Stock insurance (fire, theft, goods-in-transit) is valid and sum insured covers peak stock value",Yes/No,1,N,,Policy schedule
+HEAD,CUS,Customs Control & Bonded Stock,CUS01,Duty-free (bonded) stock is physically segregated from duty-paid / local-market stock and clearly marked,Rating 5,3,Y,C,Walk-through; signage; separate bins
+HEAD,CUS,Customs Control & Bonded Stock,CUS02,Customs-controlled areas are locked and sealed as required by Customs (dual-key / customs seal); key & seal log maintained,Rating 5,3,Y,C S,"Key log, seal register"
+HEAD,CUS,Customs Control & Bonded Stock,CUS03,Customs bonded stock register reconciles with SAP stock (sample of 10 SKUs - see General information),Rating 5,3,Y,C I,Ledger vs SAP sample
+HEAD,CUS,Customs Control & Bonded Stock,CUS04,Every inbound consignment is cleared on a customs declaration (Bayan / FASAH) under duty suspension before put-away,Yes/No,3,Y,C,Declaration no. per GRN (sample 5)
+HEAD,CUS,Customs Control & Bonded Stock,CUS05,"Transfers to airport shops move on customs-approved transfer documents, sealed and escorted where required",Yes/No,3,Y,C S,Transfer docs + seal no. (sample 5)
+HEAD,CUS,Customs Control & Bonded Stock,CUS06,Seal numbers are recorded at dispatch and verified intact on receipt at the shop; discrepancies are reported,Rating 5,3,N,C S,Seal register both ends
+HEAD,CUS,Customs Control & Bonded Stock,CUS07,Inter-warehouse / inter-airport transfers are covered by customs transit declarations and closed on arrival,Yes/No,2,N,C,Open transit list
+HEAD,CUS,Customs Control & Bonded Stock,CUS08,Shop returns to the bonded warehouse are re-entered with customs documents and reconciled,Rating 5,2,N,C,Return notes vs ledger
+HEAD,CUS,Customs Control & Bonded Stock,CUS09,"Customs inspection visits are logged; findings have owner, due date and closure evidence",Rating 5,2,N,C,Customs visit log
+HEAD,CUS,Customs Control & Bonded Stock,CUS10,Periodic customs stock returns / reconciliations are submitted on time and acknowledged,Yes/No,2,N,C,Submission evidence
+HEAD,CUS,Customs Control & Bonded Stock,CUS11,No prohibited or restricted goods under KSA rules are held; restricted items have valid permits,Yes/No,3,Y,C Q,Restricted list vs stock
+HEAD,CUS,Customs Control & Bonded Stock,CUS12,"Excise goods (tobacco, energy & sweetened drinks) are tracked separately for excise duty-suspension and marking rules",Rating 5,2,N,C,Excise movement report
+HEAD,SEC,Airport Security & Access Control,SEC01,"Only authorised staff with a valid airport ID permit enter; visitors are logged, badged and escorted",Rating 5,3,Y,S,"Visitor log, ID checks"
+HEAD,SEC,Airport Security & Access Control,SEC02,Access control (card / biometric) is working; doors are not propped open or left unattended,Rating 5,2,N,S,"Test doors, alarm events"
+HEAD,SEC,Airport Security & Access Control,SEC03,"CCTV covers entrances, docks, high-value cage and customs areas, is recording and retained per requirement; no blind spots",Rating 5,3,Y,S,Live view + playback check
+HEAD,SEC,Airport Security & Access Control,SEC04,"High-value cage (watches, jewellery, electronics, fragrances) is locked, restricted and has an access log",Rating 5,3,Y,S I,"Cage log, key holders"
+HEAD,SEC,Airport Security & Access Control,SEC05,Goods for airside are screened / sealed with tamper-evident controls per the airport security programme,Yes/No,3,Y,S,"Screening records, TE seals"
+HEAD,SEC,Airport Security & Access Control,SEC06,"Tamper-evident seals and security bags are numbered, stored securely and issued against a register",Rating 5,2,N,S,Seal stock vs register
+HEAD,SEC,Airport Security & Access Control,SEC07,"Delivery vehicles and drivers are verified at the dock (ID, permit, seal, booking) before unloading",Rating 5,2,N,S,Dock log
+HEAD,SEC,Airport Security & Access Control,SEC08,Personal belongings policy is enforced; no personal bags in storage areas; exit checks performed,Rating 5,2,N,S,"Lockers, exit-check log"
+HEAD,SEC,Airport Security & Access Control,SEC09,"Key cabinet, key register and alarm codes are controlled and limited to authorised holders",Rating 5,2,N,S,Key register
+HEAD,SEC,Airport Security & Access Control,SEC10,Intruder alarm is tested and alarm events / responses are logged,Yes/No,1,N,S,Test record
+HEAD,SEC,Airport Security & Access Control,SEC11,"Tools and sharp objects (cutters, knives) are controlled and not taken airside without approval",Rating 5,1,N,S,Tool register
+HEAD,INF,Warehouse Infrastructure,INF01,"Building, roof, floors, walls and ceilings are clean and in good condition (no leaks, cracks or damage)",Rating 5,2,N,H,
+HEAD,INF,Warehouse Infrastructure,INF02,"Lighting, ventilation and drainage are adequate in all storage zones",Rating 5,2,N,H,
+HEAD,INF,Warehouse Infrastructure,INF03,"Emergency exits are marked, illuminated and unobstructed",Rating 5,3,Y,H,
+HEAD,INF,Warehouse Infrastructure,INF04,"Temperature and humidity monitoring devices are available, recording and calibrated",Rating 5,2,N,Q,Calibration certificate
+HEAD,INF,Warehouse Infrastructure,INF05,"Racking is inspected, load signs are displayed and no damaged uprights / beams are in use",Rating 5,2,N,H,Racking inspection report
+HEAD,REC,Receiving (Inbound),REC01,"Delivery documents (invoice, packing list, AWB / BL) match the PO and the physical shipment",Rating 5,3,N,C I,Sample 5 receipts
+HEAD,REC,Receiving (Inbound),REC02,"Vehicle cleanliness, condition and seal are checked before unloading",Rating 5,1,N,S,
+HEAD,REC,Receiving (Inbound),REC03,"Goods are checked for damage, packaging integrity and quantity; non-conforming goods are reported and quarantined",Rating 5,2,N,I,
+HEAD,REC,Receiving (Inbound),REC04,Batch / lot and expiry are recorded in the Expiry Tracker at receipt,Rating 5,2,N,Q,
+HEAD,REC,Receiving (Inbound),REC05,Bayan / customs process is completed on time with declaration records available,Yes/No,3,Y,C,
+HEAD,REC,Receiving (Inbound),REC06,GRNs are posted in SAP against PO and invoice on the day of receipt,Rating 5,3,N,I,GRN date vs receipt date
+HEAD,REC,Receiving (Inbound),REC07,"Arabic labelling, SFDA requirements and Halal certificates are verified for food items",Rating 5,2,N,Q,"Labels, certificates"
+HEAD,REC,Receiving (Inbound),REC08,SASO / SABER conformity certificates are available for electronics and regulated products,Yes/No,2,N,Q,SABER certificates
+HEAD,REC,Receiving (Inbound),REC09,"Heat-sensitive goods (chocolate, cosmetics) are moved to controlled storage promptly after receipt",Rating 5,2,N,Q,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF01,"Fashion, electronics, perfumes and other non-food stock are stored in the correct system bin",Rating 5,2,N,I,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF02,"Physical SKU, barcode and quantity match the bin location (10-bin sample, minimum 80% - see General information)",Rating 5,3,Y,I,Bin accuracy sample
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF03,Bins are clearly labelled and different SKUs are not mixed,Rating 5,2,N,I,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF04,Fashion items are arranged by brand / category and protected from damage,Rating 5,1,N,,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF05,Perfumes and cosmetics are stored securely and away from heat and sunlight,Rating 5,2,N,Q H,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF06,"Electronics are protected from moisture, impact and unauthorised access",Rating 5,2,N,S,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF07,Stock is stored off the floor and within safe stacking limits,Rating 5,2,N,H,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF08,Aisles and emergency routes are clear,Rating 5,2,N,H,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF09,"Damaged, returned, blocked and obsolete stock is separated and labelled",Rating 5,2,N,I C,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF10,Allocation is made only against an approved store or transfer order,Yes/No,2,N,I,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF11,"Correct SKU, EAN, size, model, variant and quantity are picked; picks are scanned or independently checked",Rating 5,3,N,I,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF12,Damaged or blocked stock is not picked,Yes/No,2,N,I,
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT01,Food and tobacco are stored in the correct location and away from chemicals and unsuitable non-food items,Rating 5,2,N,Q,
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT02,"Storage temperature is suitable, checked daily and deviations are actioned (see General information)",Rating 5,3,N,Q,Temperature log
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT03,"Products are protected from heat, humidity, sunlight and contamination, stored off the floor with air circulation",Rating 5,2,N,Q H,
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT04,Batch and expiry details are visible and traceable,Rating 5,2,N,Q I,
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT05,"FEFO is followed for storage, allocation and picking",Rating 5,3,N,Q I,
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT06,Cigars are held in a working humidor with humidity recorded,Rating 5,1,N,Q,
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT07,"Expired, damaged, blocked or contaminated stock is not picked",Yes/No,3,Y,Q,
+HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT08,"Tobacco is stored and picked from a secure, access-controlled area",Rating 5,2,N,S C,
+HEAD,INV,Inventory Control,INV01,Physical stock and system bin locations match,Rating 5,3,N,I,
+HEAD,INV,Inventory Control,INV02,"GRNs, transfers, relocations and picks are posted promptly in SAP (no backlog older than 24 h)",Rating 5,3,N,I,Pending transaction report
+HEAD,INV,Inventory Control,INV03,Cycle counts are completed to schedule (ABC / high-value) and documented,Rating 5,3,N,I,Count calendar vs actual
+HEAD,INV,Inventory Control,INV04,"Stock differences are investigated, approved at the right level and corrected with root cause",Rating 5,3,N,I C,Variance approvals
+HEAD,INV,Inventory Control,INV05,Batch traceability is maintained from receipt to dispatch,Rating 5,2,N,I Q,
+HEAD,INV,Inventory Control,INV06,"Obsolete, blocked and negative stock is identified and actioned",Rating 5,2,N,I,
+HEAD,INV,Inventory Control,INV07,Last full stock count result was within tolerance and reconciled with Customs,Yes/No,3,N,I C,Count report
+HEAD,EXP,Expiry & FEFO Management,EXP01,Expiry dates are visible and the FEFO policy is applied,Rating 5,2,N,Q,
+HEAD,EXP,Expiry & FEFO Management,EXP02,Near-expiry report is generated and communicated to commercial / shops on time,Rating 5,2,N,Q,
+HEAD,EXP,Expiry & FEFO Management,EXP03,Monthly expiry review is completed with the responsible team,Yes/No,2,N,Q,
+HEAD,EXP,Expiry & FEFO Management,EXP04,"Expired items are isolated, blocked in SAP and communicated",Rating 5,3,Y,Q,
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE01,"Tester and sample stock is received as non-saleable, declared to Customs and booked to a separate tester stock type / location in SAP",Rating 5,3,N,C I,"Declaration line, SAP tester location"
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE02,"Tester register (brand, SKU, qty, shop, date, approval) is up to date and reconciles with SAP tester stock – check 5 SKUs",Rating 5,3,N,C I,Register vs SAP sample (see General information)
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE03,Testers are marked 'Tester – Not for sale' and physically separated from saleable stock; no tester found in saleable bins,Yes/No,3,Y,C Q,Walk saleable fragrance bins
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE04,Testers are issued to shops only against an approved request and transfer document,Rating 5,2,N,C I,Request + transfer for last 5 issues
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE05,Used / empty testers returned from shops are counted and disposed under the approved customs / brand procedure with records,Rating 5,2,N,C,"Return log, disposal record"
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE06,"GWP, samples and promotional items are on the same controlled register; none are sold or transferred as saleable",Rating 5,2,N,C I,GWP register
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE07,"Damage found at receipt is recorded with photos on the GRN / damage report, and supplier or insurance claims are raised on time",Rating 5,2,N,I,"Damage reports, claim log"
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE08,Damaged stock is moved to a blocked / damage location in SAP the same day,Rating 5,3,N,I,SAP blocked stock vs physical
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE09,"Quarantine / damage cage is locked, labelled and access-controlled; contents match the damage register",Rating 5,3,Y,C S,Count 5 items in cage vs register
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE10,"Recoverable damage (re-pack, re-label, minor repair) is processed promptly and released to saleable only after QC approval",Rating 5,2,N,Q,Recoverable damage log
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE11,Write-offs follow the approval matrix (value thresholds) with Finance sign-off before posting,Rating 5,3,N,I,Approved write-off forms
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE12,"Expired register lists every expired SKU with batch, quantity, value and location, and matches SAP blocked stock",Rating 5,3,N,Q I,Register vs SAP
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE13,Return-to-vendor or re-export of expired / near-expiry goods is processed on customs documents and closed,Rating 5,2,N,C,RTV / re-export declarations
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE14,Destruction request listing the goods is submitted to Customs and approval is received BEFORE any disposal,Yes/No,3,Y,C,Customs approval letter
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE15,"Destruction is witnessed (Customs and company), evidenced with photos / video and a destruction certificate is filed",Yes/No,3,Y,C,"Certificate, witness sheet, photos"
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE16,"After destruction both the customs bonded register and SAP are updated, and quantities reconcile",Yes/No,3,Y,C I,Register and SAP postings
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE17,"Disposal contractor is licensed; aerosols, perfumes (flammable) and batteries are disposed as hazardous waste",Rating 5,2,N,H,"Contractor licence, waste manifest"
+HEAD,TDE,"Testers, Damaged & Expired Goods (Customs-controlled)",TDE18,"Damage %, expiry write-off value, tester consumption and items awaiting destruction are reviewed monthly with Commercial / brands",Rating 5,1,N,I,Monthly review minutes
+HEAD,OUT,Outbound Operations & Dispatch,OUT01,"Store order, SKU, quantity and batch are verified before loading",Rating 5,3,N,I,
+HEAD,OUT,Outbound Operations & Dispatch,OUT02,"Packaging, pallets, cages and transport condition are suitable and secure",Rating 5,2,N,S,
+HEAD,OUT,Outbound Operations & Dispatch,OUT03,"Labels, delivery note and shipping / customs documents are complete",Rating 5,3,N,C,
+HEAD,OUT,Outbound Operations & Dispatch,OUT04,"Truck / cage seals are applied, verified and recorded",Yes/No,3,Y,S C,
+HEAD,OUT,Outbound Operations & Dispatch,OUT05,Bayan / customs transfer process is completed on time before goods leave,Yes/No,3,Y,C,
+HEAD,OUT,Outbound Operations & Dispatch,OUT06,Delivery notes are acknowledged and signed by the receiving shop and returned to the warehouse,Rating 5,2,N,I,Signed DN sample
+HEAD,MHE,Material Handling Equipment,MHE01,Forklifts and pallet jacks receive documented pre-use inspections,Rating 5,2,N,H,
+HEAD,MHE,Material Handling Equipment,MHE02,Equipment is operational and maintenance records are available,Rating 5,2,N,H,
+HEAD,MHE,Material Handling Equipment,MHE03,"Battery charging area is controlled, ventilated and free from ignition risks",Rating 5,2,N,H,
+HEAD,MHE,Material Handling Equipment,MHE04,"Only authorised, trained and licensed personnel operate handling equipment",Yes/No,3,Y,H,Operator licences
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE01,"Warehouse, waste areas and access routes are clean and unobstructed",Rating 5,2,N,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE02,Waste is removed regularly; cleaning materials and spill kits are controlled,Rating 5,1,N,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE03,Pest-control schedule and service records are current (licensed contractor),Rating 5,2,N,H Q,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE04,"No evidence of pests, infestation or product contamination is observed",Yes/No,3,Y,H Q,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE05,Required PPE is available and used,Rating 5,2,N,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE06,"First-aid kits are stocked, in date and accessible",Rating 5,1,N,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE07,"Safety signs, marked walkways and pedestrian / vehicle separation are maintained",Rating 5,2,N,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE08,Incident reporting and manual-handling procedures are followed,Rating 5,2,N,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE09,Fire extinguishers are accessible and within inspection date,Yes/No,3,Y,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE10,Fire alarm and sprinkler systems are operational and tested per Civil Defense requirements,Yes/No,3,Y,H,Test certificate
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE11,"Fire exits, emergency lights and evacuation map are displayed; last drill recorded",Rating 5,2,N,H,
+HEAD,HSE,"Health, Safety, Fire & Pest Control",HSE12,"Flammable materials (aerosols, perfumes, alcohol-based) and lithium battery stock are stored per fire-safety rules",Rating 5,2,N,H,
+HEAD,PRF,Warehouse Performance,PRF01,"Pending GRN, transfer and picking transactions are reviewed and cleared",Rating 5,2,N,I,
+HEAD,PRF,Warehouse Performance,PRF02,Top stock variances and negative stock are investigated,Rating 5,2,N,I,
+HEAD,PRF,Warehouse Performance,PRF03,Bin space is used well; no unnecessary empty or overloaded locations,Rating 5,1,N,,
+HEAD,PRF,Warehouse Performance,PRF04,"Receiving, put-away and picking lead times / delays are monitored (KPI board)",Rating 5,2,N,,
+HEAD,PRF,Warehouse Performance,PRF05,Store order fill-rate and on-time delivery to shops are measured and reviewed,Rating 5,2,N,,
+HEAD,PRF,Warehouse Performance,PRF06,Manpower is suitable for the workload and responsibilities are clear,Rating 5,1,N,,
+HEAD,PRF,Warehouse Performance,PRF07,"Scanners, forklifts and pallet jacks are available; downtime is followed up",Rating 5,1,N,,
+HEAD,MGT,Management Protocols & People,MGT01,Current SOPs and work instructions (incl. customs & security procedures) are available to staff,Rating 5,2,N,C,
+HEAD,MGT,Management Protocols & People,MGT02,Daily briefing / debriefing records are maintained,Rating 5,2,N,,
+HEAD,MGT,Management Protocols & People,MGT03,Staff are trained on customs duty-free rules and airport security awareness; records are current,Rating 5,3,N,C S,Training matrix
+HEAD,MGT,Management Protocols & People,MGT04,Required warehouse checks are completed and supervisor-verified,Rating 5,2,N,,
+HEAD,MGT,Management Protocols & People,MGT05,"Maintenance, training and competence records are current",Rating 5,2,N,H,
+HEAD,MGT,Management Protocols & People,MGT06,Staff wear proper uniform and visible airport ID badges,Rating 5,1,N,S,
+HEAD,MGT,Management Protocols & People,MGT07,"Previous audit actions have an owner, due date and closure evidence",Rating 5,3,N,,Previous action plan
+DAILY,DOP,Opening & Security,DOP01,Alarm disarmed by authorised person; no signs of forced entry,Yes/No,2,Y,S,
+DAILY,DOP,Opening & Security,DOP02,CCTV is live and recording on all cameras,Yes/No,2,Y,S,
+DAILY,DOP,Opening & Security,DOP03,Customs seals / locks on bonded areas found intact and match the seal register,Yes/No,3,Y,C S,
+DAILY,DOP,Opening & Security,DOP04,High-value cage locked; key register signed,Yes/No,2,Y,S,
+DAILY,DOP,Opening & Security,DOP05,Visitor and contractor log in use; all visitors escorted,Yes/No,1,N,S,
+DAILY,DOP,Opening & Security,DOP06,Staff have airport ID badges visible; no personal bags in storage areas,Yes/No,1,N,S,
+DAILY,DCU,Customs & Documents,DCU01,Yesterday's receipts have customs declarations (Bayan / FASAH) and GRNs posted,Yes/No,3,Y,C I,
+DAILY,DCU,Customs & Documents,DCU02,Today's shop transfers are prepared with customs documents and seal numbers recorded,Yes/No,3,Y,C S,
+DAILY,DCU,Customs & Documents,DCU03,Signed delivery notes from shops for yesterday's deliveries received back,Yes/No,2,N,I,
+DAILY,DCU,Customs & Documents,DCU04,Returns and damaged goods recorded and placed in the customs-approved quarantine area,Yes/No,2,N,C,
+DAILY,DST,"Storage, Stock & Expiry",DST01,Temperature and humidity recorded and within range (enter readings in Shift info),Yes/No,2,N,Q,
+DAILY,DST,"Storage, Stock & Expiry",DST02,"No stock on the floor, in aisles or blocking racking",Yes/No,2,N,H,
+DAILY,DST,"Storage, Stock & Expiry",DST03,No expired or damaged product in pick faces; near-expiry pulls done,Yes/No,3,Y,Q,
+DAILY,DST,"Storage, Stock & Expiry",DST04,"Damaged / expired items found today are labelled, moved to the locked quarantine cage and logged – nothing thrown away without Customs approval",Yes/No,3,Y,C Q,
+DAILY,DST,"Storage, Stock & Expiry",DST05,Testers issued today are logged in the tester register against an approved shop request,Yes/No,2,N,C I,
+DAILY,DST,"Storage, Stock & Expiry",DST06,Bins labelled; no mixed SKUs found in today's picks,Yes/No,1,N,I,
+DAILY,DST,"Storage, Stock & Expiry",DST07,Food & tobacco stored apart from chemicals and perfumes; humidor working,Yes/No,1,N,Q,
+DAILY,DST,"Storage, Stock & Expiry",DST08,Pending picks / orders from yesterday cleared,Yes/No,2,N,I,
+DAILY,DHS,Safety & Housekeeping,DHS01,Fire exits and emergency routes clear; extinguishers in place,Yes/No,3,Y,H,
+DAILY,DHS,Safety & Housekeeping,DHS02,Forklift / pallet jack pre-use checks completed and signed,Yes/No,2,Y,H,
+DAILY,DHS,Safety & Housekeeping,DHS03,"Battery charging area tidy, ventilated, nothing stored around chargers",Yes/No,1,N,H,
+DAILY,DHS,Safety & Housekeeping,DHS04,Floors clean and dry; waste and empty cartons removed,Yes/No,1,N,H,
+DAILY,DHS,Safety & Housekeeping,DHS05,"No signs of pests (droppings, damaged packaging, insects)",Yes/No,2,Y,H Q,
+DAILY,DHS,Safety & Housekeeping,DHS06,"PPE (safety shoes, vests, gloves) worn by the team",Yes/No,1,N,H,
+DAILY,DCL,Team & Closing,DCL01,"Shift briefing done (priorities, customs / security reminders)",Yes/No,1,N,,
+DAILY,DCL,Team & Closing,DCL02,Scanners and devices charged and working; faults reported,Yes/No,1,N,,
+DAILY,DCL,Team & Closing,DCL03,"End of shift: all doors, dock shutters and cage locked; customs seals applied and logged",Yes/No,3,Y,C S,
+DAILY,DCL,Team & Closing,DCL04,Alarm set and keys returned to the key cabinet,Yes/No,2,Y,S,
