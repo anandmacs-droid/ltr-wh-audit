@@ -3060,7 +3060,8 @@ function score(a){
 // ===== storage =====
 let db=null;
 function idb(){return new Promise(res=>{try{const rq=indexedDB.open("dfwa",1);rq.onupgradeneeded=()=>rq.result.createObjectStore("audits",{keyPath:"id"});rq.onsuccess=()=>{db=rq.result;res(db)};rq.onerror=()=>res(null);}catch(e){res(null)}});}
-async function putA(a){a.updated=new Date().toISOString(); if(!a.level)a.level="HEAD"; if(db){return new Promise(r=>{const tx=db.transaction("audits","readwrite");tx.objectStore("audits").put(a);tx.oncomplete=r;tx.onerror=()=>{toast("Storage full – export the audit file");r()};});} try{localStorage.setItem("dfwa_"+a.id,JSON.stringify(a))}catch(e){toast("Storage full – export the audit file")}}
+async function putA0(a){ const u=a.updated; await putA(a,true); }
+async function putA(a,keepTime){ if(!keepTime) a.updated=new Date().toISOString(); if(!keepTime&&a.status!=="done"&&typeof syncDraftSoon==="function") syncDraftSoon(); if(!a.level)a.level="HEAD"; if(db){return new Promise(r=>{const tx=db.transaction("audits","readwrite");tx.objectStore("audits").put(a);tx.oncomplete=r;tx.onerror=()=>{toast("Storage full – export the audit file");r()};});} try{localStorage.setItem("dfwa_"+a.id,JSON.stringify(a))}catch(e){toast("Storage full – export the audit file")}}
 async function allA(){ let o=[]; if(db){o=await new Promise(r=>{const out=[];const c=db.transaction("audits").objectStore("audits").openCursor();c.onsuccess=e=>{const cu=e.target.result;if(cu){out.push(cu.value);cu.continue()}else r(out)};c.onerror=()=>r(out);});} else {for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith("dfwa_"))try{o.push(JSON.parse(localStorage.getItem(k)))}catch(e){}}} o.forEach(a=>{if(!a.level)a.level="HEAD"}); return o; }
 let delArm=""; async function delA(id){ if(delArm!==id){ delArm=id; toast("Tap ✕ again to delete"); setTimeout(()=>{delArm=""},4000); return; } if(db){await new Promise(r=>{const tx=db.transaction("audits","readwrite");tx.objectStore("audits").delete(id);tx.oncomplete=r;});} localStorage.removeItem("dfwa_"+id); renderHome(); }
 
@@ -3117,7 +3118,6 @@ async function startAudit(){
   if(!w){toast("Select a warehouse");return;} if(!name){toast("Enter your name");return;}
   let mail=document.getElementById("s_mail").value.trim().toLowerCase();
   if(mail&&!mail.includes("@")&&COMPANY_DOMAINS.length===1) mail+="@"+COMPANY_DOMAINS[0];
-  if(ONLINE_OK()&&!mail){toast("Enter your company email to receive the report");return;}
   if(mail&&!/^\S+@\S+\.\S+$/.test(mail)){toast("Check the email address");return;}
   if(mail&&COMPANY_DOMAINS.length&&!COMPANY_DOMAINS.some(d=>mail.endsWith("@"+d)||mail.endsWith("."+d))){toast("Use your company email ("+COMPANY_DOMAINS.map(d=>"@"+d).join(" / ")+")");return;}
   ls("dfwa_name",name); ls("dfwa_mail",mail); ls("dfwa_role_"+pend.level,pend.role);
@@ -3410,7 +3410,7 @@ async function posterPDF(){ busy(true,"Creating QR poster…"); try{ const el=do
   const b=pdf.output("blob"); if(!(await saveFile("DF_Warehouse_Audit_QR_poster.pdf",b))) dl0("DF_Warehouse_Audit_QR_poster.pdf",b,"application/pdf"); }catch(e){ busy(false); toast("Poster failed: "+e.message); } }
 
 // ===== server connection (Google Apps Script back office) =====
-const ENDPOINT = "";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbyowmBb15kUlGSN-_d9_eK2ns3ORt1oeALGWP3xGbQk4GVwDCFiR4ubcgp9_lNSur1P0Q/exec";
 // Microsoft Forms "Submit Warehouse Audit" (company back office: PDFs land in the owner's OneDrive, list in Excel)
 const FORM_URL = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=BuZTgp9NcEypUcCWmvGvBwuwVDFmMJVBrAci8-paN_JUNzk5RjE4VThMT0xOTEdFNFg5TUJDMDM5TC4u";  // only for the self-hosted (PWA) copy: paste the Apps Script /exec URL here
 const GAS = !!(window.google && google.script && google.script.run);
@@ -3478,7 +3478,7 @@ async function downloadPDF(a){
 
 // ===== submit to back office + email to auditor =====
 function detailRows(a){ const out=[]; for(const ar of LV(a).areas) for(const q of ar.q){const an=a.answers[q.id]||{};const sc=qScore(q,an);out.push([a.id,ar.title,q.n,q.t,q.w,an.v?SCALES[q.ty][an.v].l:"",sc&&!sc.na?sc.pts:"",sc&&!sc.na?sc.max:"",q.c?"Y":"",(an.r||[]).join("; "),an.c||""]);} return out; }
-function summaryOf(a){ const s=score(a); return {id:a.id,level:LV(a).name,wh:a.info.wh,code:a.info.code,loc:a.info.loc,type:a.info.type,dt:a.info.dt,completed:a.completed,aud:a.info.aud,role:a.info.role,email:a.info.email||"",rep:a.info.rep||"",
+function summaryOf(a){ const s=score(a); return {id:a.id,status:a.status==="done"?"Completed":"In progress",level:LV(a).name,wh:a.info.wh,code:a.info.code,loc:a.info.loc,type:a.info.type,dt:a.info.dt,completed:a.completed,aud:a.info.aud,role:a.info.role,email:a.info.email||"",rep:a.info.rep||"",
   pct:s.p==null?null:Math.round(s.p*100)/100,pts:Math.round(s.pts*10)/10,max:s.max,rating:s.rating.t,crit:s.crit.length,gaps:gaps(a).length,answered:s.answered,total:s.total,
   customs:s.tags.C.p==null?null:Math.round(s.tags.C.p),security:s.tags.S.p==null?null:Math.round(s.tags.S.p),hse:s.tags.H.p==null?null:Math.round(s.tags.H.p),inventory:s.tags.I.p==null?null:Math.round(s.tags.I.p),
   areas:LV(a).areas.map(x=>x.title+": "+(s.areas[x.code].p==null?"NA":Math.round(s.areas[x.code].p)+"% "+s.areas[x.code].rag.t)).join(" | "),
@@ -3504,6 +3504,13 @@ function renderSyncStatus(){
    : cur.sync==="sent" ? `<div class="banner ok">✓ Submitted to back office ${fmtDT(cur.syncAt)}${cur.emailed?` · PDF emailed to <b>${esc(cur.emailed)}</b>`:""}</div>`
    : `<div class="banner warn">⏳ Not yet submitted${cur.syncErr?` (${esc(cur.syncErr)})`:""}. It uploads automatically when there is signal, or tap <b>Submit & email report</b>.</div>`;
 }
+// in-progress audits are mirrored to the back office (no PDF, no email) so the owner sees work in progress
+let draftT=null;
+function syncDraftSoon(){ clearTimeout(draftT); draftT=setTimeout(syncDrafts,45000); }
+async function syncDrafts(){ if(!ONLINE_OK()||!navigator.onLine) return; const L=(await allA()).filter(a=>a.status!=="done"&&score(a).answered>0&&(a.draftSyncedAt||"")<(a.updated||""));
+  for(const a of L){ try{ const lite=JSON.parse(JSON.stringify(a)); delete lite.sig; Object.values(lite.answers||{}).forEach(x=>{delete x.ph;});
+    await api("submit",{audit:lite,summary:summaryOf(a),rows:detailRows(a),pdf:null,pdfName:pdfName(a)}); a.draftSyncedAt=new Date(Date.now()+1000).toISOString(); await putA0(a); }catch(e){} } }
+document.addEventListener("visibilitychange",()=>{ if(document.hidden) syncDrafts(); });
 async function retryPending(){ if(!ONLINE_OK()||!navigator.onLine||syncing) return; const L=(await allA()).filter(a=>a.status==="done"&&a.sync==="pending"); for(const a of L){ await submitFlow(a,false); } if(!document.getElementById("home").classList.contains("hidden")) renderHome(); }
 window.addEventListener("online",()=>setTimeout(retryPending,1500));
 async function renderPend(){ const L=(await allA()).filter(a=>a.status==="done"&&a.sync==="pending"); document.getElementById("pendBox").innerHTML=L.length&&ONLINE_OK()?`<div class="banner warn">⏳ ${L.length} completed audit(s) waiting to upload. <button class="btn sm" onclick="retryPending()">Upload now</button></div>`:""; }
@@ -3539,9 +3546,9 @@ function renderAdmin(){
     <div class="kpi"><div class="v" style="color:#c3002f">${L.reduce((t,x)=>t+(+x.crit||0),0)}</div><div class="k">Critical findings</div></div><div class="kpi"><div class="v">${whs.length}</div><div class="k">Warehouses</div></div></div></div>
    ${whs.length?`<div class="sheet"><div class="bar dark">Latest result per warehouse & level</div><div style="overflow-x:auto"><table class="t"><tr><th>Warehouse</th>${lvls.map(l=>`<th>${esc(l)}</th>`).join("")}</tr>
     ${whs.map(w=>`<tr><td><b>${esc(w)}</b><br><span class="note">${esc((L.find(x=>x.code===w)||{}).loc||"")}</span></td>${lvls.map(l=>{const x=latest[w+"|"+l];return x?`<td class="heat" style="background:${+x.crit?"#c3002f":col(x.pct)}">${x.pct===""||x.pct==null?"–":Math.round(x.pct)+"%"}<div style="font-weight:400;font-size:9.5px">${String(x.dt).slice(0,10)}${+x.crit?" · "+x.crit+" crit":""}</div></td>`:`<td style="text-align:center;color:#aaa">–</td>`}).join("")}</tr>`).join("")}</table></div></div>`:""}
-   <div class="sheet"><div class="bar dark">All audits (${L.length})</div><div style="overflow-x:auto"><table class="t"><tr><th>Date</th><th>Level</th><th>Warehouse</th><th>Auditor</th><th>Score</th><th>Crit.</th><th class="noprint">Report</th></tr>
+   <div class="sheet"><div class="bar dark">All audits (${L.length})</div><div style="overflow-x:auto"><table class="t"><tr><th>Date</th><th>Level</th><th>Warehouse</th><th>Auditor</th><th>Status</th><th>Score</th><th>Crit.</th><th class="noprint">Report</th></tr>
     ${L.map(x=>`<tr><td>${fmtDT(x.dt)}</td><td>${esc(x.level)}</td><td><b>${esc(x.code)}</b><br><span class="note">${esc(x.loc)}</span></td><td>${esc(x.aud)}<br><span class="note">${esc(x.role)}${x.email?" · "+esc(x.email):""}</span></td>
-     <td class="heat" style="background:${+x.crit?"#c3002f":col(x.pct)}">${x.pct===""||x.pct==null?"–":(+x.pct).toFixed(1)+"%"}</td><td style="text-align:center">${x.crit}</td>
+     <td>${x.status==="In progress"?'<span class="pill" style="background:#d89400">In progress</span>':'<span class="pill" style="background:#2e8b57">Completed</span>'}<br><span class="note">${esc(x.answered||"")}/${esc(x.total||"")}</span></td><td class="heat" style="background:${+x.crit?"#c3002f":col(x.pct)}">${x.pct===""||x.pct==null?"–":(+x.pct).toFixed(1)+"%"}</td><td style="text-align:center">${x.crit}</td>
      <td class="noprint" style="white-space:nowrap"><button class="btn ghost sm" onclick="adminView('${esc(x.id)}')">View</button> ${x.pdfUrl?`<a class="btn ghost sm" style="text-decoration:none" target="_blank" href="${x.pdfUrl}">PDF</a>`:""}</td></tr>`).join("")}</table></div></div></div>`;
 }
 async function adminView(id){ busy(true,"Opening report…"); try{ const r=await api("adminGet",{key:ADM.key,id}); busy(false); cur=r.audit; cur.readonly=true; openReport(true); }catch(e){ busy(false); toast(String(e.message||e)); } }
@@ -3558,7 +3565,7 @@ if(ARTIFACT){ window.print=()=>toast("Use “Download PDF” to save the report"
   if(GAS){ google.script.url.getLocation(l=>go(l.parameter||{})); }
   else { const P=Object.fromEntries(new URLSearchParams(location.search)); const h=(location.hash||"").slice(1).toUpperCase(); if(BANKS[h]) P.level=h; go(P); }
   if(location.protocol.startsWith("http")&&!GAS&&"serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
-  setTimeout(retryPending,3000); })();
+  setTimeout(retryPending,3000); setTimeout(syncDrafts,6000); })();
 </script>
 </body>
 </html>
