@@ -168,7 +168,7 @@ table.t input,table.t select{padding:5px;font-size:12px}
       <button class="btn ghost sm" id="btnImp" onclick="document.getElementById('imp').click()">Import audit file(s)</button>
       <button class="btn ghost sm" id="btnAdm" onclick="openAdmin()">🔒 Back office (owner)</button>
     </div>
-    <input id="imp" type="file" accept=".json,application/json" multiple class="hidden" onchange="importFiles(this.files)">
+    <input id="imp" type="file" accept=".json,.pdf,application/json,application/pdf" multiple class="hidden" onchange="importFiles(this.files)">
   </div>
   <div class="card"><div class="bar dark">Saved on this device</div><div id="savedList"></div></div>
 </section>
@@ -209,7 +209,8 @@ table.t input,table.t select{padding:5px;font-size:12px}
       <button class="btn mag sm" onclick="downloadPDF(cur)">⬇ Download PDF</button>
       <button class="btn sm" id="btnSubmit" onclick="submitFlow(cur,true)">✉ Submit & email report</button>
       <button class="btn ghost sm" onclick="window.print()">Print</button>
-      <button class="btn sm" onclick="exportJSON(cur)">⬇ Audit file (send to owner)</button>
+      <button class="btn sm" id="btnForm" onclick="openForm()">📤 Submit to back office</button>
+      <button class="btn ghost sm" id="btnJson" onclick="exportJSON(cur)">⬇ Audit file</button>
     </div>
   </div>
   <div class="wrap noprint" style="padding-bottom:0" id="rpStatus"></div><div id="rpBody"></div>
@@ -222,7 +223,7 @@ table.t input,table.t select{padding:5px;font-size:12px}
     <button class="btn ghost sm" onclick="document.getElementById('imp').click()">Import audit files</button>
     <button class="btn sm" onclick="exportCSV(RES,'summary')">Summary CSV</button>
   </div>
-  <div class="banner ok noprint">Back office: tap <b>Import audit files</b> and select the audit files auditors sent you (you can pick many at once). Every audit then shows below – view it, download its PDF, or export all results to Excel (Summary CSV).</div>
+  <div class="banner ok noprint">Back office: tap <b>Import audit files</b> and select the PDF reports from the OneDrive folder “Apps › Microsoft Forms › Submit Warehouse Audit” (or audit files; many at once). Every audit then shows below – view it, download its PDF, or export all results to Excel (Summary CSV).</div>
   <div class="card noprint"><div class="row">
     <div><label>Audit level</label><select id="f_lvl" onchange="renderResults()"></select></div>
     <div><label>Location</label><select id="f_loc" onchange="renderResults()"></select></div>
@@ -3207,8 +3208,9 @@ function initSig(k){const c=document.getElementById("sig"+k); const r=c.getBound
 function clrSig(k){delete cur.sig[k]; renderFinish();}
 async function complete(){ const s=score(cur); if(s.answered<s.total&&!cur._warned){ cur._warned=1; toast((s.total-s.answered)+" question(s) not answered – tap Complete again to finish anyway"); return; }
   if(!cur.assessment) cur.assessment=autoAssessment(cur); cur.status="done"; cur.completed=new Date().toISOString(); cur.sync=cur.sync||"pending"; await putA(cur); openReport(); submitFlow(cur,false); }
-function openReport(ro){ document.body.classList.remove("posterMode"); document.getElementById("rpBody").innerHTML=reportHTML(cur); document.getElementById("rpBtns").classList.remove("hidden"); const bs=document.getElementById("btnSubmit"); bs.classList.toggle("hidden",!!ro||ARTIFACT);
+function openReport(ro){ document.body.classList.remove("posterMode"); document.getElementById("rpBody").innerHTML=reportHTML(cur); document.getElementById("rpBtns").classList.remove("hidden"); const bs=document.getElementById("btnSubmit"); bs.classList.toggle("hidden",!!ro||ARTIFACT||(!!FORM_URL&&!ONLINE_OK()));
   if(ONLINE_OK()){ bs.textContent="✉ Submit & email report"; bs.onclick=()=>submitFlow(cur,true); } else { bs.textContent="✉ Email / share PDF"; bs.onclick=()=>downloadPDF(cur); }
+  const bf=document.getElementById("btnForm"), bj=document.getElementById("btnJson"); if(bf) bf.classList.toggle("hidden",!!ro||!FORM_URL||ONLINE_OK()); if(bj) bj.classList.toggle("hidden",!OWNER);
   renderSyncStatus(); show("report"); }
 function backFromReport(){ if(cur&&cur.readonly){show("admin");return;} if(cur&&cur.status!=="done"&&cur.info){show("audit");renderAudit();} else goHome(); }
 
@@ -3316,7 +3318,8 @@ function exportCSV(list,kind){
     for(const a of list){const s=score(a);const ar=Object.entries(s.areas);rows.push([a.id,LV(a).name,a.info.wh,a.info.code,a.info.loc,a.info.dt,a.info.aud,a.info.role,s.p==null?"":f2(s.p),s.rating.t,s.crit.length,...Object.keys(TAGS).map(t=>s.tags[t].p==null?"":f2(s.tags[t].p)),ar.filter(x=>x[1].rag.t==="RED").map(x=>areaOf(a,x[0]).title).join("; "),ar.filter(x=>x[1].rag.t==="AMBER").map(x=>areaOf(a,x[0]).title).join("; ")]);} }
   dl(`DF_WH_Audit_${kind}_${new Date().toISOString().slice(0,10)}.csv`,"﻿"+rows.map(r=>r.map(csvE).join(",")).join("\r\n"),"text/csv");
 }
-async function importFiles(files){ let n=0; for(const f of files){ try{let a=JSON.parse(await f.text()); for(const x of (Array.isArray(a)?a:[a])) if(x&&x.info&&x.answers){if(!x.level)x.level="HEAD"; await putA(x);n++;}}catch(e){} } toast(n+" audit file(s) imported"); renderHome(); if(!document.getElementById("results").classList.contains("hidden")) renderResults(); }
+function auditFromPdf(buf){ const s=new TextDecoder("latin1").decode(buf); const m=s.match(/DFWA1:([A-Za-z0-9+\/=]+):DFWA1/); if(!m) return null; const a=JSON.parse(decodeURIComponent(escape(atob(m[1])))); a.fromPdf=true; return a; }
+async function importFiles(files){ let n=0; for(const f of files){ try{ if(/\.pdf$/i.test(f.name)){ const a=auditFromPdf(new Uint8Array(await f.arrayBuffer())); if(a&&a.info&&a.answers){ if(!a.level)a.level="HEAD"; a.status=a.status||"done"; await putA(a); n++; } continue; } let a=JSON.parse(await f.text()); for(const x of (Array.isArray(a)?a:[a])) if(x&&x.info&&x.answers){if(!x.level)x.level="HEAD"; await putA(x);n++;}}catch(e){} } toast(n+" audit file(s) imported"); renderHome(); if(!document.getElementById("results").classList.contains("hidden")) renderResults(); }
 
 // ===== results by warehouse / location / level =====
 let RES=[];
@@ -3382,7 +3385,9 @@ async function posterPDF(){ busy(true,"Creating QR poster…"); try{ const el=do
   const b=pdf.output("blob"); if(!(await saveFile("DF_Warehouse_Audit_QR_poster.pdf",b))) dl0("DF_Warehouse_Audit_QR_poster.pdf",b,"application/pdf"); }catch(e){ busy(false); toast("Poster failed: "+e.message); } }
 
 // ===== server connection (Google Apps Script back office) =====
-const ENDPOINT = "";  // only for the self-hosted (PWA) copy: paste the Apps Script /exec URL here
+const ENDPOINT = "";
+// Microsoft Forms "Submit Warehouse Audit" (company back office: PDFs land in the owner's OneDrive, list in Excel)
+const FORM_URL = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=BuZTgp9NcEypUcCWmvGvBwuwVDFmMJVBrAci8-paN_JUNzk5RjE4VThMT0xOTEdFNFg5TUJDMDM5TC4u";  // only for the self-hosted (PWA) copy: paste the Apps Script /exec URL here
 const GAS = !!(window.google && google.script && google.script.run);
 const ONLINE_OK = () => GAS || !!ENDPOINT;
 function api(action,data){
@@ -3423,11 +3428,15 @@ async function makePDF(a){
       if(start<H-1){ pdf.addPage(); bg(); y=M; }
     }
   }
+  try{ const lite=JSON.parse(JSON.stringify(a)); delete lite.sig; Object.values(lite.answers||{}).forEach(x=>{delete x.ph;});
+    const b64=btoa(unescape(encodeURIComponent(JSON.stringify(lite))));
+    pdf.setProperties({title:`${LV(a).name} – ${a.info.wh} (${a.info.code})`,subject:"DF Warehouse Audit",author:a.info.aud||"",creator:"DF Warehouse Audit",keywords:"DFWA1:"+b64+":DFWA1"}); }catch(e){}
   const n=pdf.getNumberOfPages();
   for(let i=1;i<=n;i++){ pdf.setPage(i); pdf.setFontSize(7); pdf.setTextColor(130); pdf.text(`${a.info.code} · ${LV(a).name} · ${a.id} · Page ${i} / ${n}`,PW/2,PH-8,{align:"center"}); }
   host.innerHTML="";
   return pdf.output("blob");
 }
+function openForm(){ if(!FORM_URL){toast("Back office form not set");return;} const l=document.createElement("a"); l.href=FORM_URL; l.target="_blank"; l.rel="noopener"; document.body.appendChild(l); l.click(); l.remove(); }
 function pdfName(a){ return `${a.info.code}_${LV(a).name.replace(/[^A-Za-z]+/g,"_")}_${(a.info.dt||"").slice(0,10)}.pdf`; }
 function blobToB64(b){ return new Promise(r=>{const f=new FileReader(); f.onload=()=>r(String(f.result).split(",")[1]); f.readAsDataURL(b);}); }
 async function getPDF(a){ const key=a.id+"|"+a.updated; if(pdfCache[key]) return pdfCache[key]; const b=await makePDF(a); pdfCache[key]=b; return b; }
@@ -3466,7 +3475,7 @@ function renderSyncStatus(){
   const el=document.getElementById("rpStatus"); if(!el||!cur||!cur.info) { if(el) el.innerHTML=""; return; }
   if(cur.readonly){ el.innerHTML=`<div class="banner ok">Back-office copy · submitted ${fmtDT(cur.syncAt||cur.completed)}</div>`; return; }
   if(cur.status!=="done"){ el.innerHTML=""; return; }
-  el.innerHTML = !ONLINE_OK() ? (ARTIFACT?`<div class="banner ok"><b>Audit completed.</b><br>1 · Tap <b>⬇ Download PDF</b> – your copy of the report.<br>2 · Tap <b>⬇ Audit file</b> and send it (email / WhatsApp / Teams) to the audit owner – it goes into the back office.</div>`:`<div class="banner warn">Tap <b>Email / share PDF</b> and choose Outlook to send the report from your company email.</div>`)
+  el.innerHTML = !ONLINE_OK() ? (FORM_URL&&!ARTIFACT?`<div class="banner ok"><b>Audit completed – 2 steps:</b><br>1 · Tap <b>⬇ Download PDF</b> and save the report.<br>2 · Tap <b>📤 Submit to back office</b>, sign in with your company account and upload that PDF.</div>`:ARTIFACT?`<div class="banner ok"><b>Audit completed.</b><br>1 · Tap <b>⬇ Download PDF</b> – your copy of the report.<br>2 · Tap <b>⬇ Audit file</b> and send it (email / WhatsApp / Teams) to the audit owner – it goes into the back office.</div>`:`<div class="banner warn">Tap <b>Email / share PDF</b> and choose Outlook to send the report from your company email.</div>`)
    : cur.sync==="sent" ? `<div class="banner ok">✓ Submitted to back office ${fmtDT(cur.syncAt)}${cur.emailed?` · PDF emailed to <b>${esc(cur.emailed)}</b>`:""}</div>`
    : `<div class="banner warn">⏳ Not yet submitted${cur.syncErr?` (${esc(cur.syncErr)})`:""}. It uploads automatically when there is signal, or tap <b>Submit & email report</b>.</div>`;
 }
