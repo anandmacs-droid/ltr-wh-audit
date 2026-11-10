@@ -98,7 +98,7 @@ table.t input,table.t select{padding:5px;font-size:12px}
 .rp .qi .aa{padding:7px 10px 8px 34px;font-weight:700;font-size:12.5px}
 .rp .qi .cm{padding:0 10px 8px 34px;font-size:12px;font-weight:400;color:#333}
 .rp .qi .ph2{padding:0 10px 8px 34px;display:flex;gap:6px;flex-wrap:wrap}
-.rp .qi .ph2 img{height:62px;border-radius:4px}
+.rp .qi .ph2 img{height:125px;max-width:100%;border-radius:4px;object-fit:cover}
 .rp .gi{background:#F4F4F4;border-radius:7px;padding:7px 10px;margin-bottom:6px;font-size:12.5px;display:flex;justify-content:space-between;gap:10px}
 .rp .gi b{white-space:nowrap}
 .rp table.t{font-size:11px}
@@ -3271,7 +3271,7 @@ function reportHTML(a){
   if(lv==="EXEC"){
     const top=[...G].sort((u,v)=>v.lost-u.lost).slice(0,5);
     return `<div class="rp">${header}
-     <div class="sheet"><div class="bar dark">Executive summary</div><div style="font-size:12.5px;line-height:1.55">${esc(a.assessment||autoAssessment(a))}</div></div>
+     <div class="sheet"><div class="bar dark">Executive summary</div><div style="font-size:12.5px;line-height:1.55;white-space:pre-line">${esc(a.assessment||autoAssessment(a))}</div></div>
      <div class="sheet keep"><div class="bar dark">Risk pillars – RAG status</div>${rag}${scaleNote}</div>
      <div class="sheet keep"><div class="bar dark">Key indicators</div><div class="kpis">${kv(pc(s.p),"Overall score",s.p==null?null:s.p>=80)+kv(s.crit.length,"Critical issues",s.crit.length===0)+kv(majors.length,"Major issues (incl. critical)",majors.length===0)+kv(G.filter(x=>((a.actions||{})[x.q.id]||{}).esc==="Yes").length,"Escalated to management")
        +kv(pc(s.tags.C.p),"Customs index",s.tags.C.p==null?null:s.tags.C.p>=85)+kv(pc(s.tags.S.p),"Security index",s.tags.S.p==null?null:s.tags.S.p>=85)+kv(pc(s.tags.I.p),"Inventory index",s.tags.I.p==null?null:s.tags.I.p>=85)+kv(pc(s.tags.H.p),"HSE index",s.tags.H.p==null?null:s.tags.H.p>=85)}</div>${g.aw_val!==undefined&&g.aw_val!==""?`<div class="gi" style="margin-top:8px"><span>Damaged / expired stock awaiting disposal</span><b>SAR ${(+g.aw_val).toLocaleString("en-US")}</b></div>`:""}
@@ -3286,7 +3286,7 @@ function reportHTML(a){
     const fails=G;
     const meas=[["Ambient temperature",g.tamb,"°C",TARGET.tamb],["Cool room temperature",g.tcool,"°C",TARGET.tcool],["Relative humidity",g.rh,"%",TARGET.rh]].filter(m=>m[1]!==undefined&&m[1]!=="");
     return `<div class="rp">${header}
-     <div class="sheet"><div class="bar dark">Shift summary</div><div style="font-size:12.5px;line-height:1.55">${esc(a.assessment||autoAssessment(a))}</div>
+     <div class="sheet"><div class="bar dark">Shift summary</div><div style="font-size:12.5px;line-height:1.55;white-space:pre-line">${esc(a.assessment||autoAssessment(a))}</div>
       <div class="kpis" style="margin-top:10px">${kv(pc(s.p),"Score",s.p==null?null:s.p>=90)+kv((s.answered-fails.length-Object.values(s.areas).reduce((t,x)=>t+x.na,0))+" / "+s.answered,"Checks passed")+kv(fails.length,"Failed checks",fails.length===0)+kv(s.crit.length,"Critical failures",s.crit.length===0)}</div>
       ${meas.length?`<table class="t" style="margin-top:8px"><tr><th>Reading</th><th>Result</th><th>Target</th><th>Status</th></tr>${meas.map(m=>`<tr><td>${m[0]}</td><td><b>${m[1]}${m[2]}</b></td><td>≤ ${m[3]}${m[2]}</td><td>${+m[1]<=m[3]?'<span class="pill" style="background:#2e8b57">PASS</span>':'<span class="pill" style="background:#c3002f">FAIL</span>'}</td></tr>`).join("")}</table>`:""}</div>
      ${issueList(fails,"Failed checks","#c3002f")}
@@ -3313,7 +3313,7 @@ function reportHTML(a){
     .map(m=>`<tr><td>${m[0]}</td><td style="text-align:center"><b>${nn(m[1])?"–":m[1]+m[2]}</b></td><td>${m[3]}</td><td style="text-align:center">${m[4]==null?"–":m[4]?'<span class="pill" style="background:#2e8b57">PASS</span>':'<span class="pill" style="background:#c3002f">FAIL</span>'}</td></tr>`).join("");
   const trend=(!nn(g.prev)&&s.p!=null)?`<div class="gi" style="margin-top:8px"><span>Previous audit score → current</span><b>${g.prev}% → ${f2(s.p)}% (${s.p-g.prev>=0?"▲ +":"▼ "}${f2(s.p-g.prev)} pts)</b></div>`:"";
   return `<div class="rp">${header}
-   <div class="sheet"><div class="bar dark">Overall assessment</div><div style="font-size:12.5px;line-height:1.55">${esc(a.assessment||autoAssessment(a))}</div>
+   <div class="sheet"><div class="bar dark">Overall assessment</div><div style="font-size:12.5px;line-height:1.55;white-space:pre-line">${esc(a.assessment||autoAssessment(a))}</div>
     <div class="bar dark" style="margin-top:14px">Results by theme</div>${themeBars}</div>
    <div class="sheet"><div class="bar dark">Deep analysis – key indicators</div><div class="kpis">${kpis}</div>${scaleNote}</div>
    <div class="sheet keep"><div class="bar dark">Area heat map & answer distribution</div>
@@ -3540,7 +3540,7 @@ function renderAdmin(){
     <div><label>Location</label><select id="a_loc" onchange="renderAdmin()">${opts(ADM.list.map(x=>x.loc),f.loc,"All locations")}</select></div>
     <div><label>Warehouse</label><select id="a_wh" onchange="renderAdmin()">${opts(ADM.list.map(x=>x.code),f.wh,"All warehouses")}</select></div></div>
     <div class="row"><div><label>From</label><input type="date" id="a_from" value="${f.from}" onchange="renderAdmin()"></div><div><label>To</label><input type="date" id="a_to" value="${f.to}" onchange="renderAdmin()"></div><div><label>Auditor / email / warehouse</label><input id="a_q" value="${esc(f.q)}" onchange="renderAdmin()"></div></div>
-    <div class="row" style="margin-top:10px">${ADM.links.sheet?`<a class="btn ghost sm" style="text-align:center;text-decoration:none" target="_blank" href="${ADM.links.sheet}">Open results sheet</a>`:""}${ADM.links.folder?`<a class="btn ghost sm" style="text-align:center;text-decoration:none" target="_blank" href="${ADM.links.folder}">Open all PDF reports (Drive)</a>`:""}<button class="btn ghost sm" onclick="window.print()">Print this view</button></div></div>
+    <div class="row" style="margin-top:10px">${ADM.links.sheet?`<a class="btn ghost sm" style="text-align:center;text-decoration:none" target="_blank" href="${ADM.links.sheet}">Open results sheet</a>`:""}${ADM.links.folder?`<a class="btn ghost sm" style="text-align:center;text-decoration:none" target="_blank" href="${ADM.links.folder}">Open all PDF reports (Drive)</a>`:""}<button class="btn ghost sm" onclick="window.print()">Print this view</button><button class="btn ghost sm" onclick="document.getElementById('admPdf').click()">⬆ Upload audit PDF</button><input type="file" id="admPdf" accept="application/pdf,.pdf" multiple class="hidden" onchange="adminUploadPdf(this.files);this.value=''"></div></div>
    <div class="sheet"><div class="bar navy">Published results</div><div class="kpis">
     <div class="kpi"><div class="v">${L.length}</div><div class="k">Audits</div></div><div class="kpi"><div class="v">${avg==null?"–":Math.round(avg)+"%"}</div><div class="k">Average score</div></div>
     <div class="kpi"><div class="v" style="color:#c3002f">${L.reduce((t,x)=>t+(+x.crit||0),0)}</div><div class="k">Critical findings</div></div><div class="kpi"><div class="v">${whs.length}</div><div class="k">Warehouses</div></div></div></div>
@@ -3551,6 +3551,12 @@ function renderAdmin(){
      <td>${x.status==="In progress"?'<span class="pill" style="background:#d89400">In progress</span>':'<span class="pill" style="background:#2e8b57">Completed</span>'}<br><span class="note">${esc(x.answered||"")}/${esc(x.total||"")}</span></td><td class="heat" style="background:${+x.crit?"#c3002f":col(x.pct)}">${x.pct===""||x.pct==null?"–":(+x.pct).toFixed(1)+"%"}</td><td style="text-align:center">${x.crit}</td>
      <td class="noprint" style="white-space:nowrap"><button class="btn ghost sm" onclick="adminView('${esc(x.id)}')">View</button> ${x.pdfUrl?`<a class="btn ghost sm" style="text-decoration:none" target="_blank" href="${x.pdfUrl}">PDF</a>`:""}</td></tr>`).join("")}</table></div></div></div>`;
 }
+async function adminUploadPdf(files){ let n=0,bad=0;
+  for(const f of files){ busy(true,"Uploading "+f.name+"…","Adding the audit to the back office");
+    try{ const buf=new Uint8Array(await f.arrayBuffer()); const a=auditFromPdf(buf); if(!a||!a.info||!a.answers){bad++;continue;} if(!a.level)a.level="HEAD"; a.status="done"; delete a.fromPdf;
+      const pdf=await blobToB64(new Blob([buf],{type:"application/pdf"}));
+      await api("submit",{audit:a,summary:summaryOf(a),rows:detailRows(a),pdf,pdfName:f.name}); n++; }catch(e){ bad++; } }
+  busy(false); toast(n+" audit PDF(s) added"+(bad?" · "+bad+" not recognised":"")); if(n) adminLoad(); }
 async function adminView(id){ busy(true,"Opening report…"); try{ const r=await api("adminGet",{key:ADM.key,id}); busy(false); cur=r.audit; cur.readonly=true; openReport(true); }catch(e){ busy(false); toast(String(e.message||e)); } }
 function exportAdminCSV(){ const L=ADM.view||ADM.list; if(!L.length) return; const k=Object.keys(L[0]).filter(x=>x!=="summary"); dl(`DF_WH_Audit_backoffice_${new Date().toISOString().slice(0,10)}.csv`,"﻿"+[k].concat(L.map(x=>k.map(c=>x[c]))).map(r=>r.map(csvE).join(",")).join("\r\n"),"text/csv"); }
 

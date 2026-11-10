@@ -1,5 +1,5 @@
 // network-first: always serve the latest version when online, cached copy when offline
-const C='dfwa-v7';
+const C='dfwa-v8';
 const CORE=['./','./index.html','./manifest.webmanifest','./icon-512.png','./questions.csv','./warehouses.csv'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>Promise.all(CORE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});

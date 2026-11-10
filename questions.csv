@@ -12,6 +12,7 @@ EXEC,XIN,Inventory & Financial Exposure,XIN01,Last full stock count variance wit
 EXEC,XIN,Inventory & Financial Exposure,XIN02,Bin accuracy spot-check of 5 bins is 100% (SKU + quantity),Executive 3,2,N,I,Do it yourself – 5 random bins
 EXEC,XIN,Inventory & Financial Exposure,XIN03,"Aged, obsolete, damaged and near-expiry stock is quantified, provisioned and has an action plan",Executive 3,2,N,I Q,"Ageing report, provision, clearance plan"
 EXEC,XIN,Inventory & Financial Exposure,XIN04,"No GRN, transfer or adjustment backlog older than 24 h in SAP",Executive 3,2,N,I,Pending transactions report
+EXEC,XIN,Inventory & Financial Exposure,XIN05,Every SAP user has an individual login – no shared IDs,Executive 3,3,Y,I C,Ask for SAP user list vs headcount
 EXEC,XHS,Life Safety & HSE,XHS01,"Fire exits, aisles and emergency routes are clear; fire systems certified (Civil Defense) and tested",Executive 3,3,Y,H,Walk the route; check certificate date
 EXEC,XHS,Life Safety & HSE,XHS02,Racking and material handling equipment are safe; only licensed operators drive forklifts,Executive 3,2,Y,H,Observe MHE use; ask for licences
 EXEC,XHS,Life Safety & HSE,XHS03,No lost-time incidents unreported; incidents and near-misses are investigated,Executive 3,2,N,H,Incident log
@@ -45,6 +46,7 @@ HEAD,CUS,Customs Control & Bonded Stock,CUS09,"Customs inspection visits are log
 HEAD,CUS,Customs Control & Bonded Stock,CUS10,Periodic customs stock returns / reconciliations are submitted on time and acknowledged,Yes/No,2,N,C,Submission evidence
 HEAD,CUS,Customs Control & Bonded Stock,CUS11,No prohibited or restricted goods under KSA rules are held; restricted items have valid permits,Yes/No,3,Y,C Q,Restricted list vs stock
 HEAD,CUS,Customs Control & Bonded Stock,CUS12,"Excise goods (tobacco, energy & sweetened drinks) are tracked separately for excise duty-suspension and marking rules",Rating 5,2,N,C,Excise movement report
+HEAD,CUS,Customs Control & Bonded Stock,CUS13,"Bayan entries are raised with the correct customs agent codes, HS codes and data requested; errors are tracked with the clearing agent",Rating 5,3,N,C,Bayan rejections / amendments log
 HEAD,SEC,Airport Security & Access Control,SEC01,"Only authorised staff with a valid airport ID permit enter; visitors are logged, badged and escorted",Rating 5,3,Y,S,"Visitor log, ID checks"
 HEAD,SEC,Airport Security & Access Control,SEC02,Access control (card / biometric) is working; doors are not propped open or left unattended,Rating 5,2,N,S,"Test doors, alarm events"
 HEAD,SEC,Airport Security & Access Control,SEC03,"CCTV covers entrances, docks, high-value cage and customs areas, is recording and retained per requirement; no blind spots",Rating 5,3,Y,S,Live view + playback check
@@ -62,6 +64,7 @@ HEAD,INF,Warehouse Infrastructure,INF02,"Lighting, ventilation and drainage are 
 HEAD,INF,Warehouse Infrastructure,INF03,"Emergency exits are marked, illuminated and unobstructed",Rating 5,3,Y,H,
 HEAD,INF,Warehouse Infrastructure,INF04,"Temperature and humidity monitoring devices are available, recording and calibrated",Rating 5,2,N,Q,Calibration certificate
 HEAD,INF,Warehouse Infrastructure,INF05,"Racking is inspected, load signs are displayed and no damaged uprights / beams are in use",Rating 5,2,N,H,Racking inspection report
+HEAD,INF,Warehouse Infrastructure,INF06,Toilets and washrooms are functional and clean; no water leakage in the building,Rating 5,2,N,H,
 HEAD,REC,Receiving (Inbound),REC01,"Delivery documents (invoice, packing list, AWB / BL) match the PO and the physical shipment",Rating 5,3,N,C I,Sample 5 receipts
 HEAD,REC,Receiving (Inbound),REC02,"Vehicle cleanliness, condition and seal are checked before unloading",Rating 5,1,N,S,
 HEAD,REC,Receiving (Inbound),REC03,"Goods are checked for damage, packaging integrity and quantity; non-conforming goods are reported and quarantined",Rating 5,2,N,I,
@@ -71,6 +74,8 @@ HEAD,REC,Receiving (Inbound),REC06,GRNs are posted in SAP against PO and invoice
 HEAD,REC,Receiving (Inbound),REC07,"Arabic labelling, SFDA requirements and Halal certificates are verified for food items",Rating 5,2,N,Q,"Labels, certificates"
 HEAD,REC,Receiving (Inbound),REC08,SASO / SABER conformity certificates are available for electronics and regulated products,Yes/No,2,N,Q,SABER certificates
 HEAD,REC,Receiving (Inbound),REC09,"Heat-sensitive goods (chocolate, cosmetics) are moved to controlled storage promptly after receipt",Rating 5,2,N,Q,
+HEAD,REC,Receiving (Inbound),REC10,Packing list matches pallet contents pallet-by-pallet (incl. hub / Dubai shipments); mixed pallets reported to supplier,Rating 5,2,N,I C,Sample 3 pallets vs packing list
+HEAD,REC,Receiving (Inbound),REC11,Inbound invoices are checked against goods and marked / stamped as verified after customs clearance,Rating 5,2,N,C I,Stamped invoices sample
 HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF01,"Fashion, electronics, perfumes and other non-food stock are stored in the correct system bin",Rating 5,2,N,I,
 HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF02,"Physical SKU, barcode and quantity match the bin location (10-bin sample, minimum 80% - see General information)",Rating 5,3,Y,I,Bin accuracy sample
 HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF03,Bins are clearly labelled and different SKUs are not mixed,Rating 5,2,N,I,
@@ -83,6 +88,8 @@ HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF09,"Damaged, returned, bl
 HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF10,Allocation is made only against an approved store or transfer order,Yes/No,2,N,I,
 HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF11,"Correct SKU, EAN, size, model, variant and quantity are picked; picks are scanned or independently checked",Rating 5,3,N,I,
 HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF12,Damaged or blocked stock is not picked,Yes/No,2,N,I,
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF13,Ground / pallet stock has allocated bin locations in SAP; stock arranged brand-wise with shelving and bin boxes for small items,Rating 5,2,N,I,Bin master vs floor
+HEAD,SNF,"Storage, Allocation & Picking - Non-Food",SNF14,"Trading (saleable) and non-trading items (testers, GWP, POSM, consumables) are physically segregated and labelled",Rating 5,2,N,I C,
 HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT01,Food and tobacco are stored in the correct location and away from chemicals and unsuitable non-food items,Rating 5,2,N,Q,
 HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT02,"Storage temperature is suitable, checked daily and deviations are actioned (see General information)",Rating 5,3,N,Q,Temperature log
 HEAD,SFT,"Storage, Allocation & Picking - Food & Tobacco",SFT03,"Products are protected from heat, humidity, sunlight and contamination, stored off the floor with air circulation",Rating 5,2,N,Q H,
@@ -98,6 +105,7 @@ HEAD,INV,Inventory Control,INV04,"Stock differences are investigated, approved a
 HEAD,INV,Inventory Control,INV05,Batch traceability is maintained from receipt to dispatch,Rating 5,2,N,I Q,
 HEAD,INV,Inventory Control,INV06,"Obsolete, blocked and negative stock is identified and actioned",Rating 5,2,N,I,
 HEAD,INV,Inventory Control,INV07,Last full stock count result was within tolerance and reconciled with Customs,Yes/No,3,N,I C,Count report
+HEAD,INV,Inventory Control,INV08,Every SAP user has an individual login; no shared or borrowed user IDs; access matches role (segregation of duties),Yes/No,3,Y,I C,SAP user list vs staff list
 HEAD,EXP,Expiry & FEFO Management,EXP01,Expiry dates are visible and the FEFO policy is applied,Rating 5,2,N,Q,
 HEAD,EXP,Expiry & FEFO Management,EXP02,Near-expiry report is generated and communicated to commercial / shops on time,Rating 5,2,N,Q,
 HEAD,EXP,Expiry & FEFO Management,EXP03,Monthly expiry review is completed with the responsible team,Yes/No,2,N,Q,
@@ -156,6 +164,7 @@ HEAD,MGT,Management Protocols & People,MGT04,Required warehouse checks are compl
 HEAD,MGT,Management Protocols & People,MGT05,"Maintenance, training and competence records are current",Rating 5,2,N,H,
 HEAD,MGT,Management Protocols & People,MGT06,Staff wear proper uniform and visible airport ID badges,Rating 5,1,N,S,
 HEAD,MGT,Management Protocols & People,MGT07,"Previous audit actions have an owner, due date and closure evidence",Rating 5,3,N,,Previous action plan
+HEAD,MGT,Management Protocols & People,MGT08,"Warehouse log books are maintained and signed daily (visitor, key, seal, temperature, cleaning, receiving / dispatch, tester / GWP issue)",Rating 5,3,Y,C S,Log books for last 7 days
 DAILY,DOP,Opening & Security,DOP01,Alarm disarmed by authorised person; no signs of forced entry,Yes/No,2,Y,S,
 DAILY,DOP,Opening & Security,DOP02,CCTV is live and recording on all cameras,Yes/No,2,Y,S,
 DAILY,DOP,Opening & Security,DOP03,Customs seals / locks on bonded areas found intact and match the seal register,Yes/No,3,Y,C S,
@@ -185,3 +194,4 @@ DAILY,DCL,Team & Closing,DCL02,Scanners and devices charged and working; faults 
 DAILY,DCL,Team & Closing,DCL05,"Exit checks done for every person leaving – bags and personal items checked, no goods taken out without an approved gate pass / transfer document; exit-check log signed",Yes/No,3,Y,S I,
 DAILY,DCL,Team & Closing,DCL03,"End of shift: all doors, dock shutters and cage locked; customs seals applied and logged",Yes/No,3,Y,C S,
 DAILY,DCL,Team & Closing,DCL04,Alarm set and keys returned to the key cabinet,Yes/No,2,Y,S,
+DAILY,DCL,Team & Closing,DCL06,"Today's log books are filled in and signed (visitors, keys, seals, temperature, cleaning)",Yes/No,2,N,C S,
