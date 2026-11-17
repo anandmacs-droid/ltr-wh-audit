@@ -3083,7 +3083,7 @@ async function renderHome(){ renderPend();
   const L=(await allA()).sort((a,b)=>(b.updated||"").localeCompare(a.updated||""));
   const el=document.getElementById("savedList");
   if(!L.length){el.innerHTML='<div class="hint">No audits yet on this device.</div>';return;}
-  el.innerHTML=L.slice(0,40).map(a=>{const s=score(a);return `<div class="list-item"><div><b>${esc(a.info.wh)}</b> (${esc(a.info.code)})<div class="hint">${esc(LV(a).name)} · ${fmtDT(a.info.dt)} · ${a.status==="done"?(a.sync==="sent"?"✓ Submitted":ONLINE_OK()?"⏳ Waiting to upload":"Completed"):"In progress "+s.answered+"/"+s.total}</div></div>
+  el.innerHTML=L.slice(0,40).map(a=>{const s=score(a);return `<div class="list-item"><div><b>${esc(a.info.wh)}</b> (${esc(a.info.code)})<div class="hint">${esc(LV(a).name)} · ${fmtDT(a.info.dt)} · ${a.status==="done"?(a.sync==="sent"?"✓ Submitted":ONLINE_OK()?"⏳ Waiting to upload"+(a.syncErr?" – "+esc(String(a.syncErr).slice(0,80)):""):"Completed"):"In progress "+s.answered+"/"+s.total}</div></div>
    <div style="text-align:right;white-space:nowrap"><span class="pill" style="background:${s.rating.c}">${s.p==null?"–":Math.round(s.p)+"%"}</span><br>
    <button class="btn ghost sm" onclick="openA('${a.id}')">Open</button> <button class="btn ghost sm" onclick="openA('${a.id}',1)">Report</button> <button class="btn ghost sm" style="color:#c3002f;border-color:#c3002f" onclick="delA('${a.id}')">✕</button></div></div>`}).join("");
 }
@@ -3513,6 +3513,9 @@ async function syncDrafts(){ if(!ONLINE_OK()||!navigator.onLine) return; const L
 document.addEventListener("visibilitychange",()=>{ if(document.hidden) syncDrafts(); });
 async function retryPending(){ if(!ONLINE_OK()||!navigator.onLine||syncing) return; const L=(await allA()).filter(a=>a.status==="done"&&a.sync==="pending"); for(const a of L){ await submitFlow(a,false); } if(!document.getElementById("home").classList.contains("hidden")) renderHome(); }
 window.addEventListener("online",()=>setTimeout(retryPending,1500));
+// keep trying: on start, when the app comes back to the screen, and every 3 minutes while open
+setTimeout(retryPending,5000); setInterval(retryPending,180000);
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden) setTimeout(retryPending,1500); });
 async function renderPend(){ const L=(await allA()).filter(a=>a.status==="done"&&a.sync==="pending"); document.getElementById("pendBox").innerHTML=L.length&&ONLINE_OK()?`<div class="banner warn">⏳ ${L.length} completed audit(s) waiting to upload. <button class="btn sm" onclick="retryPending()">Upload now</button></div>`:""; }
 
 // ===== owner back office =====
