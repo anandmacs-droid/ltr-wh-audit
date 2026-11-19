@@ -2981,12 +2981,16 @@ const OWNER = /owner|admin/i.test(location.hash+" "+location.search);   // open 
 // ===== CONFIGURATION – edit to match your sites =====
 const APP_URL = "";   // e.g. "https://audit.yourcompany.com/df-warehouse/" – used for the start QR; blank = current address
 let WAREHOUSES = [
-  {code:"DMMZ", name:"DMM Duty Free Warehouse", loc:"KFIA – Dammam (DMM)"},
-  {code:"RUHZ", name:"RUH Duty Free Warehouse", loc:"KKIA – Riyadh (RUH)"},
-  {code:"JEDZ", name:"JED Duty Free Warehouse", loc:"KAIA – Jeddah (JED)"},
-  {code:"MEDZ", name:"MED Duty Free Warehouse", loc:"PMIA – Madinah (MED)"},
+  {code:"DMMF", name:"Dammam DF", loc:"Dammam (DMM)"},
+  {code:"MEDY", name:"Madina DP", loc:"Madinah (MED)"},
+  {code:"MEDZ", name:"Duty Free Madina Warehouse", loc:"Madinah (MED)"},
+  {code:"TIFZ", name:"Taif Duty Free Warehouse", loc:"Taif (TIF)"},
+  {code:"AHBZ", name:"Abha Duty Free Warehouse", loc:"Abha (AHB)"},
+  {code:"ELQZ", name:"Qassim Duty Free Warehouse", loc:"Qassim (ELQ)"},
+  {code:"HASZ", name:"Hail Warehouse", loc:"Hail (HAS)"},
+  {code:"TUUZ", name:"Tabuk Duty Free Warehouse", loc:"Tabuk (TUU)"},
 ];
-const LOCATIONS = ["KKIA – Riyadh (RUH)","KAIA – Jeddah (JED)","KFIA – Dammam (DMM)","PMIA – Madinah (MED)","Other"];
+const LOCATIONS = ["Dammam (DMM)","Madinah (MED)","Taif (TIF)","Abha (AHB)","Qassim (ELQ)","Hail (HAS)","Tabuk (TUU)","Other"];
 const ROLES = {EXEC:["CEO / MD","ExCom member","Country / Regional Director","Finance Director"],HEAD:["Head of Compliance","Head of Operations","Head of Master Data & Compliance","Internal Audit","Loss Prevention"],DAILY:["Warehouse Supervisor","Warehouse Manager","Team Leader","Storekeeper"]};
 const TARGET = {bin:80, ledger:98, tamb:25, tcool:18, rh:60};
 const REASONS = ["Not done","Partially done","Records missing / not updated","Equipment / system fault","Training / awareness gap","Housekeeping","Customs / regulatory gap","Security gap","Other"];
