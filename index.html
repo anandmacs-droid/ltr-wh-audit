@@ -3083,7 +3083,7 @@ function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorag
 
 async function renderHome(){ renderPend();
   // auditors see only the audit levels; owner tools appear only on the owner link (#owner)
-  [["btnRes",!OWNER||ONLINE_OK()],["btnImp",!OWNER||ONLINE_OK()],["btnQR",!OWNER],["btnAdm",!OWNER||!ONLINE_OK()]].forEach(([id,h])=>{const e=document.getElementById(id); if(e) e.classList.toggle("hidden",h);});
+  [["btnRes",!OWNER||ONLINE_OK()],["btnImp",!OWNER],["btnQR",!OWNER],["btnAdm",!OWNER||!ONLINE_OK()]].forEach(([id,h])=>{const e=document.getElementById(id); if(e) e.classList.toggle("hidden",h);});
   const tc=document.getElementById("btnQR")&&document.getElementById("btnQR").closest(".card"); if(tc) tc.classList.toggle("hidden",!OWNER);
   document.getElementById("lvlTiles").innerHTML=Object.values(BANKS).map(b=>`<button class="lvl ${b.code}" onclick="newAudit('${b.code}')"><div class="nm">${esc(b.name)}</div><div class="who">${esc(b.who)}</div><div class="ds">${esc(b.desc)}</div><div class="go">›</div></button>`).join("");
   const L=(await allA()).sort((a,b)=>(b.updated||"").localeCompare(a.updated||""));
