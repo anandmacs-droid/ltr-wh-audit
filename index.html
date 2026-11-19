@@ -2982,6 +2982,7 @@ const OWNER = /owner|admin/i.test(location.hash+" "+location.search);   // open 
 const APP_URL = "";   // e.g. "https://audit.yourcompany.com/df-warehouse/" – used for the start QR; blank = current address
 let WAREHOUSES = [
   {code:"DMMZ", name:"DMM Duty Free Warehouse", loc:"KFIA – Dammam (DMM)"},
+  {code:"KSAZ", name:"Riyadh Duty Free Warehouse", loc:"Riyadh (RUH)"},
   {code:"DMMF", name:"Dammam DF", loc:"Dammam (DMM)"},
   {code:"MEDY", name:"Madina DP", loc:"Madinah (MED)"},
   {code:"MEDZ", name:"Duty Free Madina Warehouse", loc:"Madinah (MED)"},
@@ -2991,7 +2992,7 @@ let WAREHOUSES = [
   {code:"HASZ", name:"Hail Warehouse", loc:"Hail (HAS)"},
   {code:"TUUZ", name:"Tabuk Duty Free Warehouse", loc:"Tabuk (TUU)"},
 ];
-const LOCATIONS = ["Dammam (DMM)","Madinah (MED)","Taif (TIF)","Abha (AHB)","Qassim (ELQ)","Hail (HAS)","Tabuk (TUU)","Other"];
+const LOCATIONS = ["Riyadh (RUH)","Dammam (DMM)","Madinah (MED)","Taif (TIF)","Abha (AHB)","Qassim (ELQ)","Hail (HAS)","Tabuk (TUU)","Other"];
 const ROLES = {EXEC:["CEO / MD","ExCom member","Country / Regional Director","Finance Director"],HEAD:["Head of Compliance","Head of Operations","Head of Master Data & Compliance","Internal Audit","Loss Prevention"],DAILY:["Warehouse Supervisor","Warehouse Manager","Team Leader","Storekeeper"]};
 const TARGET = {bin:80, ledger:98, tamb:25, tcool:18, rh:60};
 const REASONS = ["Not done","Partially done","Records missing / not updated","Equipment / system fault","Training / awareness gap","Housekeeping","Customs / regulatory gap","Security gap","Other"];
