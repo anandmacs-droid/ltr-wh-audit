@@ -175,7 +175,7 @@ DAILY,DCU,Customs & Documents,DCU01,Yesterday's receipts have customs declaratio
 DAILY,DCU,Customs & Documents,DCU02,Today's shop transfers are prepared with customs documents and seal numbers recorded,Yes/No,3,Y,C S,
 DAILY,DCU,Customs & Documents,DCU03,Signed delivery notes from shops for yesterday's deliveries received back,Yes/No,2,N,I,
 DAILY,DCU,Customs & Documents,DCU04,Returns and damaged goods recorded and placed in the customs-approved quarantine area,Yes/No,2,N,C,
-DAILY,DST,"Storage, Stock & Expiry",DST01,Temperature and humidity recorded and within range (enter readings in Shift info),Yes/No,2,N,Q,
+DAILY,DST,"Storage, Stock & Expiry",DST01,Temperature recorded and within range (enter readings in Shift info),Yes/No,2,N,Q,
 DAILY,DST,"Storage, Stock & Expiry",DST02,"No stock on the floor, in aisles or blocking racking",Yes/No,2,N,H,
 DAILY,DST,"Storage, Stock & Expiry",DST03,No expired or damaged product in pick faces; near-expiry pulls done,Yes/No,3,Y,Q,
 DAILY,DST,"Storage, Stock & Expiry",DST04,"Damaged / expired items found today are labelled, moved to the locked quarantine cage and logged – nothing thrown away without Customs approval",Yes/No,3,Y,C Q,
