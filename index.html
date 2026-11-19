@@ -178,7 +178,7 @@ table.t input,table.t select{padding:5px;font-size:12px}
   <div class="bar navy" id="setupTitle">New audit</div>
   <div class="card">
     <label>1 · Select warehouse</label><div class="whl" id="whList"></div>
-    <div id="whOther" class="hidden"><div class="row"><div><label>Store / location audited</label><input id="o_wh" placeholder="e.g. Departures DF store Gate A"></div><div><label>Store code</label><input id="o_code" placeholder="e.g. DMMF"></div></div>
+    <div id="whOther" class="hidden"><div class="row"><div><label>Warehouse name</label><input id="o_wh"></div><div><label>Code</label><input id="o_code"></div></div>
       <label>Airport / location</label><div class="seg" id="o_loc"></div></div>
     <label>2 · Your name</label><input id="s_aud" placeholder="Name" autocomplete="name">
     <label>Your company email (optional – for follow-up)</label><input id="s_mail" type="email" inputmode="email" placeholder="name@company.com" autocomplete="email"><div class="hint" id="domHint"></div>
@@ -3099,7 +3099,7 @@ function seg(id,opts,val,cb){const el=document.getElementById(id); el.innerHTML=
 function newAudit(level,whCode){
   pend={level,wh:null,role:ls("dfwa_role_"+level)||ROLES[level][0],loc:LOCATIONS[0]};
   const B=BANKS[level]; document.getElementById("setupTitle").textContent=B.name+" – "+B.who;
-  const wl=WAREHOUSES.concat([{code:"__OTHER",name:"Other store / location – type the name…",loc:""}]);
+  const wl=WAREHOUSES.concat([{code:"__OTHER",name:"Other warehouse…",loc:""}]);
   const el=document.getElementById("whList");
   el.innerHTML=wl.map(w=>`<button class="btn ghost" data-c="${w.code}"><b>${esc(w.name)}</b>${w.code!=="__OTHER"?` (${esc(w.code)})<div class="hint" style="margin:0">${esc(w.loc)}</div>`:""}</button>`).join("");
   [...el.children].forEach(b=>b.onclick=()=>pickWh(b.dataset.c));
@@ -3119,7 +3119,7 @@ function pickWh(c){ pend.wh=c; [...document.getElementById("whList").children].f
 async function startAudit(){
   const name=document.getElementById("s_aud").value.trim();
   let w=WAREHOUSES.find(x=>x.code===pend.wh);
-  if(pend.wh==="__OTHER"){const n=document.getElementById("o_wh").value.trim(),c=document.getElementById("o_code").value.trim().toUpperCase(); if(!n||!c){toast("Enter the store / location name and code");return;} w={name:n,code:c,loc:pend.loc};}
+  if(pend.wh==="__OTHER"){const n=document.getElementById("o_wh").value.trim(),c=document.getElementById("o_code").value.trim().toUpperCase(); if(!n||!c){toast("Enter warehouse name and code");return;} w={name:n,code:c,loc:pend.loc};}
   if(!w){toast("Select a warehouse");return;} if(!name){toast("Enter your name");return;}
   let mail=document.getElementById("s_mail").value.trim().toLowerCase();
   if(mail&&!mail.includes("@")&&COMPANY_DOMAINS.length===1) mail+="@"+COMPANY_DOMAINS[0];
@@ -3467,7 +3467,7 @@ async function makePDF(a){
   return pdf.output("blob");
 }
 function openForm(){ if(!FORM_URL){toast("Back office form not set");return;} const l=document.createElement("a"); l.href=FORM_URL; l.target="_blank"; l.rel="noopener"; document.body.appendChild(l); l.click(); l.remove(); }
-function pdfName(a){ return `${a.info.code}_${LV(a).name.replace(/[^A-Za-z]+/g,"_")}_${(a.info.dt||"").slice(0,10)}.pdf`; }
+function pdfName(a){ return `AUDIT_${a.info.code}_${String(a.info.wh||"").replace(/[^A-Za-z0-9]+/g,"_")}_${LV(a).name.replace(/[^A-Za-z]+/g,"_")}_${(a.info.dt||"").slice(0,10)}.pdf`; }
 function blobToB64(b){ return new Promise(r=>{const f=new FileReader(); f.onload=()=>r(String(f.result).split(",")[1]); f.readAsDataURL(b);}); }
 async function getPDF(a){ const key=a.id+"|"+a.updated; if(pdfCache[key]) return pdfCache[key]; const b=await makePDF(a); pdfCache[key]=b; return b; }
 async function downloadPDF(a){
